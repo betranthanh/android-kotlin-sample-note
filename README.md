@@ -8,6 +8,8 @@ Do not forget to &#9733; if you enjoy it ;).
 [![Watch the video](https://i.imgur.com/IowlPT3.png)](https://youtu.be/377fCAymUic)
 ##### ```RxJava2``` --> Let watch video below to see how to use it
 [![Watch the video](https://i.imgur.com/OsGCKBN.png)](https://youtu.be/XIee_jKhYRA)
+##### If you are new in Kotlin: watch this video first
+[![Watch the video](http://i.imgur.com/bwUurgv.png)](https://goo.gl/VDCPGE)
 ## Contact
 Drop me an email if you want discuss anything further betranthanh@gmail.com
 
