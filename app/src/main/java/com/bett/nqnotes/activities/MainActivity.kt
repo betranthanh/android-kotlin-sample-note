@@ -30,10 +30,10 @@ class MainActivity : BaseActivity() {
     @BindView(R.id.recyclerView) lateinit var recyclerView: RecyclerView
     private val adapter = NotesAdapter()
 
-    private var subscribe: Disposable? = null
-
     @Inject lateinit var notesRealmManager: NotesRealmManager
     @Inject lateinit var bus: Bus
+
+    private var subscrible: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +49,17 @@ class MainActivity : BaseActivity() {
         adapter.items = notesRealmManager.findAll()
         adapter.notifyDataSetChanged()
 
-        setupItemClick()
+        subscrible = adapter.clickEvent.subscribe {
+            var intent = Intent(this, CreateNoteActivity::class.java)
+            intent.putExtra(Constants.INTENT_KEY_NOTE_ID, it.id)
+            startActivity(intent)
+        }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        subscrible?.dispose()
     }
 
     @OnClick(R.id.btnAddNew)
@@ -64,20 +73,6 @@ class MainActivity : BaseActivity() {
     fun onClickBtnInfo() {
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun setupItemClick() {
-        subscribe = adapter.clickEvent
-                .subscribe({
-                    val intent = Intent(this, CreateNoteActivity::class.java)
-                    intent.putExtra(Constants.INTENT_KEY_NOTE_ID, it.id)
-                    startActivity(intent)
-                })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        subscribe?.dispose()
     }
 
     @Subscribe
